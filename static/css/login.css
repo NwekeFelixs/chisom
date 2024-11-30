@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+.light-theme {
+
+    /**
+     * light theme colors 
+     */
+  
+    --background-primary: hsl(0, 0%, 100%);
+    --background-secondary: hsl(0, 0%, 97%);
+  
+    --action-primary: hsl(214, 32%, 91%);
+    --action-secondary: hsl(210, 38%, 95%);
+  
+    --foreground-primary: hsl(218, 23%, 23%);
+    --foreground-secondary: hsl(216, 15%, 52%);
+    --foreground-tertiary: hsl(214, 20%, 69%);
+  
+    --accent: hsl(229, 76%, 66%);
+  
+  }
+  
+  .dark-theme {
+  
+    /**
+     * dark theme colors 
+     */
+  
+    --background-primary: ;
+    --background-secondary: hsl(220, 26%, 14%);
+  
+    --action-primary: hsl(216, 15%, 52%);
+    --action-secondary: hsl(218, 23%, 23%);
+  
+    --foreground-primary: hsl(210, 38%, 95%);
+    --foreground-secondary: hsl(211, 25%, 84%);
+    --foreground-tertiary: hsl(214, 20%, 69%);
+  
+    --accent: hsl(229, 76%, 66%);
+  
+}
+
+
+
+
+
+
+
+
+body {
+background-color: hsl(218, 23%, 23%);
+color: hsl(211, 25%, 84%);
+font-family: 'Poppins', sans-serif;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+
+.form-container {
+max-width: 480px;
+margin: 40px auto;
+padding: 2rem;
+background: hsl(220, 26%, 14%);;
+}
+
+.form-container h2 {
+    color: var(--foreground-tertiary);
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.form-container .login {
+    margin-bottom: 2rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    background: var(--background-secondary);
+    width: 100%;
+    padding: 1rem;
+}
+
+form .infield {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+
+}
+
+form .infield label {
+    color: var(--foreground-tertiary);
+    margin-bottom: 0.5rem;
+    font-size: 14px;
+}
+
+form .infield input{
+    padding: 15px 25px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    background: hsl(218, 23%, 23%);
+    color: var(--foreground-tertiary);
+    font-size: 16px;
+}
+
+form .infield input:focus {
+    background: hsl(218, 23%, 23%);
+    border: 2px solid hsl(218, 23%, 23%);;
+}
+
+form button {
+    padding: 15px 25px;
+    border: none;
+    border-radius: 5px;
+    background: hsl(229, 76%, 66%);
+    color: #fff;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background 0.3s ease;
+}

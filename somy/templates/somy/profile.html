@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cicino's Blog - chisom Personal Blog</title>
+
+  <!--
+    - favicon
+  -->
+  <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+
+  <!--
+    - custom css link
+  -->
+  <link rel="stylesheet" href="{% static 'css/style.min.css' %}">
+
+  <!--
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    .user-profile {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .user-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user-img img {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .user-profile span {
+      font-size: 12px;
+      color: var(--foreground-primary);
+    }
+    .step-links {
+      display: flex;
+      gap: 10px;
+    }
+    .next {
+      display: flex;
+      gap: 10px;
+    }
+
+    .profile-img {
+      width: 200px;
+      height: 200px;
+     border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .profile-img img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .profile-form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        max-width: 480px;
+    }
+    .profile-form-container h1 {
+      font-size: 20px;
+      color: var(--foreground-primary);
+    }
+
+    .profile-form input {
+      padding: 10px;
+      border-radius: 5px;
+      background: var(--background-primary);
+      color: var(--foreground-primary);
+      border: none;
+      outline: none;
+      width: 100%;
+      font-size: 14px;
+    }
+
+    .profile-form button {
+        width: max-content;
+    }
+
+    .profile-form textarea {
+        padding: 10px;
+        border-radius: 5px;
+        background: var(--background-primary);
+        color: var(--foreground-primary);
+        border: none;
+        outline: none;
+        width: 100%;
+        font-size: 14px;
+        resize: none;
+    }
+
+    .profile-form label {
+        font-size: 14px;
+        color: var(--foreground-secondary);
+    }
+
+    @media screen and (max-width: 1024px) {
+     .desktop-profile {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="light-theme">
+
+  <!--
+    - #HEADER
+  -->
+
+  <header>
+
+    <div class="container">
+
+      <nav class="navbar">
+
+        <a href="#">
+          <img src="{% static 'images/logo-light.svg' %}" alt="Devblog's logo" width="150" height="40" class="logo-light">
+          <img src="{% static 'images/logo-dark.svg' %}" alt="Devblog's logo" width="150" height="40" class="logo-dark">
+        </a>
+
+
+        <div class="btn-group">
+
+          <button class="theme-btn theme-btn-mobile light">
+            <ion-icon name="moon" class="moon"></ion-icon>
+            <ion-icon name="sunny" class="sun"></ion-icon>
+          </button>
+
+          <button class="nav-menu-btn">
+            <ion-icon name="menu-outline"></ion-icon>
+          </button>
+
+          <div class="user-profile">
+            <div class="user-img">
+                <img src="{% if user.is_authenticated %}{% if user.avatar %}{% static user.avatar.url %}{% else %}{% static 'images/user.svg' %}{% endif %}{% else %}{% static 'images/user.svg' %}{% endif %}" alt="User profile picture" class="user-profile-img" />
+            </div>
+            <a href="{% if user.is_authenticated %}{% url 'profile' %}{% else %}{% url 'login' %}{% endif %}">
+                <span class="username">{% if user.is_authenticated %}{{ user.name }}{% else %}Login{% endif %}</span>
+            </a>
+          </div>
+
+        </div>
+
+        <div class="flex-wrapper">
+
+          <ul class="desktop-nav">
+
+            <li class="nav-item">
+              <a href="{% url 'blog' %}" class="nav-link">Home</a>
+            </li>
+
+            <li>
+              <a href="#" class="nav-link">About Me</a>
+            </li>
+
+            <li>
+              <a href="#" class="nav-link">Contact</a>
+            </li>
+
+          </ul>
+
+          <button class="theme-btn theme-btn-desktop light">
+            <ion-icon name="moon" class="moon"></ion-icon>
+            <ion-icon name="sunny" class="sun"></ion-icon>
+          </button>
+
+        </div>
+
+        <div class="user-profile desktop-profile">
+          <div class="user-img">
+              <img src="{% if user.is_authenticated %}{% if user.avatar %}{% static user.avatar.url %}{% else %}{% static 'images/user.svg' %}{% endif %}{% else %}{% static 'images/user.svg' %}{% endif %}" alt="User profile picture" class="user-profile-img" />
+          </div>
+          <a href="{% if user.is_authenticated %}{% url 'profile' %}{% else %}{% url 'login' %}{% endif %}">
+              <span class="username">{% if user.is_authenticated %}{{ user.name }}{% else %}Login{% endif %}</span>
+          </a>
+        </div>
+
+
+        <div class="mobile-nav">
+
+          <button class="nav-close-btn">
+            <ion-icon name="close-outline"></ion-icon>
+          </button>
+
+          <div class="wrapper">
+
+            <p class="h3 nav-title">Main Menu</p>
+
+            <ul>
+              <li class="nav-item">
+                <a href="{% url 'blog' %}" class="nav-link">Home</a>
+            </li>
+            
+
+              <li class="nav-item">
+                <a href="#" class="nav-link">About Me</a>
+              </li>
+
+              <li class="nav-item">
+                <a href="#" class="nav-link">Contact</a>
+              </li>
+            </ul>
+
+          </div>
+
+          <div>
+
+            <p class="h3 nav-title">Topics</p>
+
+            <ul>
+              <li class="nav-item">
+                <a href="#" class="nav-link">Database</a>
+              </li>
+
+              <li class="nav-item">
+                <a href="#" class="nav-link">Accessibility</a>
+              </li>
+
+              <li class="nav-item">
+                <a href="#" class="nav-link">Web Performance</a>
+              </li>
+            </ul>
+
+          </div>
+
+        </div>
+
+
+      </nav>
+
+    </div>
+
+  </header>
+
+
+
+
+
+  <main>
+
+    <!--
+      - #HERO SECTION
+    -->
+
+
+
+
+
+    <div class="main">
+
+      <div class="container">
+
+        <div class="profile-info">
+            <div class="profile-img">
+                <img src="{% if user.is_authenticated %}{% if user.avatar %}{% static user.avatar.url %}{% else %}{% static 'images/user.svg' %}{% endif %}{% else %}{% static 'images/user.svg' %}{% endif %}" alt="User profile picture" class="user-profile-img" />
+            </div>
+            <div class="user-details" style="margin-bottom: 10px;">
+                <h2 class="h2">{{ user.name }}</h2>
+                <p class="h3">{{ user.email }}</p>
+                <p class="h4">{{ user.bio }}</p>
+                <p class="text-sm" style="color: var(--foreground-secondary);">Joined: {{ user.date_joined }}</p>
+            </div>
+            <div class="step-links">
+                <a href="{% url 'logout' %}" class="btn btn-secondary" style="text-align: center;">Logout</a>
+            </div>
+
+        </div>
+
+       <div class="profile-form-container">
+        <h1>Edit Profile</h1>
+        <form method="POST" enctype="multipart/form-data" class="profile-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Save Changes</button>
+        </form>
+       </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+
+
+
+  <!--
+    - #FOOTER
+  -->
+
+  <footer>
+
+    <div class="container">
+
+      <div class="wrapper">
+
+        <a href="#" class="footer-logo">
+          <img src="{% static '/images/logo-light.svg'%}" alt="DevBlog's Logo" width="150" height="40" class="logo-light">
+          <img src="{% static '/images/logo-dark.svg'%}" alt="DevBlog's Logo" width="150" height="40" class="logo-dark">
+        </a>
+
+        <p class="footer-text">
+          Learn about Web accessibility, Web performance, and Database management.
+        </p>
+
+      </div>
+
+      <div class="wrapper">
+
+        <p class="footer-title">Quick Links</p>
+
+        <ul>
+
+          <li>
+            <a href="#" class="footer-link">Advertise with us</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">About Us</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Contact Us</a>
+          </li>
+
+        </ul>
+
+      </div>
+
+      <div class="wrapper">
+
+        <p class="footer-title">Legal Stuff</p>
+
+        <ul>
+
+          <li>
+            <a href="#" class="footer-link">Privacy Notice</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Cookie Policy</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Terms Of Use</a>
+          </li>
+
+        </ul>
+
+      </div>
+
+    </div>
+
+    <p class="copyright">
+      &copy; Copyright 2022 <a href="#">chisom</a>
+    </p>
+
+  </footer>
+
+
+
+
+
+  <!--
+    - custom js link
+  -->
+  <script src="{% static './js/script.min.js' %}"></script>
+
+  <!--
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

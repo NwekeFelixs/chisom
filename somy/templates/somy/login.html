@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In || Sign Up Form</title>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon" />
+
+    <!-- Custom CSS links -->
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <h1>Hello, Friend!</h1>
+            <p>Enter your personal details and start your journey with us.</p>
+            <form action="{% url 'login' %}" method="POST">  <!-- Update action to your registration URL -->
+                {% csrf_token %}  <!-- Add CSRF token for security -->
+                <h1>LOGIN</h1>
+                <div class="infield">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" value="{{ email }}" required>
+            
+                </div>
+                <div class="infield">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>            
+                </div>
+
+                <button type="submit" class="btn btn--primary">Login</button>
+                <div class="link" style="margin-top: 10px;">
+                    <p class="text-tiny">Don't have an account? <a href="{% url 'register' %}" class="text-sm">Register</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="{% static 'js/script.min.js' %}"></script>
+
+</body>
+</html>

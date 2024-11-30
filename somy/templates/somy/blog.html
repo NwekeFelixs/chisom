@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cicino's Blog - chisom Personal Blog</title>
+
+  <!--
+    - favicon
+  -->
+  <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+
+  <!--
+    - custom css link
+  -->
+  <link rel="stylesheet" href="{% static 'css/style.min.css' %}">
+
+  <!--
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    .user-profile {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .user-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user-img img {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .user-profile span {
+      font-size: 12px;
+      color: var(--foreground-primary);
+    }
+    .step-links {
+      display: flex;
+      gap: 10px;
+    }
+    .next {
+      display: flex;
+      gap: 10px;
+    }
+
+    @media screen and (max-width: 1024px) {
+     .desktop-profile {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="light-theme">
+
+  <!--
+    - #HEADER
+  -->
+
+  <header>
+
+    <div class="container">
+
+      <nav class="navbar">
+
+        <a href="#">
+          <img src="{% static 'images/logo-light.svg' %}" alt="Devblog's logo" width="150" height="40" class="logo-light">
+          <img src="{% static 'images/logo-dark.svg' %}" alt="Devblog's logo" width="150" height="40" class="logo-dark">
+        </a>
+
+
+        <div class="btn-group">
+
+          <button class="theme-btn theme-btn-mobile light">
+            <ion-icon name="moon" class="moon"></ion-icon>
+            <ion-icon name="sunny" class="sun"></ion-icon>
+          </button>
+
+          <button class="nav-menu-btn">
+            <ion-icon name="menu-outline"></ion-icon>
+          </button>
+
+          <div class="user-profile">
+            <div class="user-img">
+                <img src="{% if user.is_authenticated %}{% if user.avatar %}{% static user.avatar.url %}{% else %}{% static 'images/user.svg' %}{% endif %}{% else %}{% static 'images/user.svg' %}{% endif %}" alt="User profile picture" class="user-profile-img" />
+            </div>
+            <a href="{% if user.is_authenticated %}{% url 'profile' %}{% else %}{% url 'login' %}{% endif %}">
+                <span class="username">{% if user.is_authenticated %}{{ user.name }}{% else %}Login{% endif %}</span>
+            </a>
+          </div>
+
+        </div>
+
+        <div class="flex-wrapper">
+
+          <ul class="desktop-nav">
+
+            <li class="nav-item">
+              <a href="{% url 'blog' %}" class="nav-link">Home</a>
+            </li>
+
+            <li>
+              <a href="#" class="nav-link">About Me</a>
+            </li>
+
+            <li>
+              <a href="#" class="nav-link">Contact</a>
+            </li>
+
+          </ul>
+
+          <button class="theme-btn theme-btn-desktop light">
+            <ion-icon name="moon" class="moon"></ion-icon>
+            <ion-icon name="sunny" class="sun"></ion-icon>
+          </button>
+
+        </div>
+
+        <div class="user-profile desktop-profile">
+          <div class="user-img">
+              <img src="{% if user.is_authenticated %}{% if user.avatar %}{% static user.avatar.url %}{% else %}{% static 'images/user.svg' %}{% endif %}{% else %}{% static 'images/user.svg' %}{% endif %}" alt="User profile picture" class="user-profile-img" />
+          </div>
+          <a href="{% if user.is_authenticated %}{% url 'profile' %}{% else %}{% url 'login' %}{% endif %}">
+              <span class="username">{% if user.is_authenticated %}{{ user.name }}{% else %}Login{% endif %}</span>
+          </a>
+        </div>
+
+
+        <div class="mobile-nav">
+
+          <button class="nav-close-btn">
+            <ion-icon name="close-outline"></ion-icon>
+          </button>
+
+          <div class="wrapper">
+
+            <p class="h3 nav-title">Main Menu</p>
+
+            <ul>
+              <li class="nav-item">
+                <a href="{% url 'blog' %}" class="nav-link">Home</a>
+            </li>
+            
+
+              <li class="nav-item">
+                <a href="#" class="nav-link">About Me</a>
+              </li>
+
+              <li class="nav-item">
+                <a href="#" class="nav-link">Contact</a>
+              </li>
+              <li class="nav-item"></li>
+              {% if user.is_authenticated %}
+                 <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
+                {% else %}
+                  <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+              {% endif %}
+              </li>
+            </ul>
+
+
+
+          </div>
+
+          <div>
+
+            <p class="h3 nav-title">Topics</p>
+
+            <ul>
+              <li class="nav-item">
+                <a href="#" class="nav-link">Database</a>
+              </li>
+
+              <li class="nav-item">
+                <a href="#" class="nav-link">Accessibility</a>
+              </li>
+
+              <li class="nav-item">
+                <a href="#" class="nav-link">Web Performance</a>
+              </li>
+            </ul>
+
+          </div>
+
+        </div>
+
+
+      </nav>
+
+    </div>
+
+  </header>
+
+
+
+
+
+  <main>
+
+    <!--
+      - #HERO SECTION
+    -->
+
+    <div class="hero">
+
+      <div class="container">
+
+        <div class="left">
+
+          <h1 class="h1">
+            Hi, I'm <b>Chisom&nbsp;Evans</b>.
+            <br>SEO Expert
+          </h1>
+
+          <p class="h3">
+            Specialized in <abbr title="Accessibility">SEO</abbr>
+            and content management
+          </p>
+
+          <div class="btn-group">
+            <a href="#" class="btn btn-primary">Contact Me</a>
+            <a href="#" class="btn btn-secondary">About Me</a>
+          </div>
+
+        </div>
+
+        <div class="right">
+
+          <div class="pattern-bg"></div>
+          <div class="img-box">
+            <img src="{% static 'images/chisom.png' %}" alt="Chisom Evans" class="hero-img">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+
+
+    <div class="main">
+
+      <div class="container">
+
+        <!--
+          - BLOG SECTION
+        -->
+
+        <div class="blog">
+
+          <h2 class="h2">Latest Blog Post</h2>
+
+          <div class="blog-card-group">
+            {% for blog in page_obj %}
+                <div class="blog-card">
+                    <div class="blog-card-banner">
+                        <img src="{{ blog.image.url }}" alt="{{ blog.title }}" width="250" class="blog-banner-img">
+                    </div>
+                    <div class="blog-content-wrapper">
+                        <button class="blog-topic text-tiny">Database</button>
+                        <h3>
+                            <a href="{% url 'blogdetail' blog.id %}" class="h3">{{ blog.title }}</a>
+                        </h3>
+                        <p class="blog-text">{{ blog.content }}</p>
+                        <div class="wrapper-flex">
+                            <div class="profile-wrapper">
+                                <img src="{{ blog.author.avatar.url }}" alt="{{ blog.author.name }}" width="50" height="50">
+                            </div>
+                            <div class="wrapper">
+                                <a href="#" class="h4">{{ blog.author.name }}</a>
+                                <p class="text-sm">Published on: {{ blog.created }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div>No posts available.</div>
+            {% endfor %}
+         </div>
+        
+        <!-- Pagination controls -->
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <div class="next">
+                      <a href="?page=1" class="h4">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}" class="h4">previous</a>
+                    </div>
+                {% endif %}
+                
+                <span class="text-sm ">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                
+                {% if page_obj.has_next %}
+                <div class="next">
+                  <a href="?page={{ page_obj.next_page_number }}" class="h4">next</a>
+                  <a href="?page={{ page_obj.paginator.num_pages }}" class="h4">last &raquo;</a>
+                </div>
+                {% endif %}
+            </span>
+        </div>
+        
+
+
+        </div>
+
+
+
+
+
+        <!--
+          - ASIDE
+        -->
+
+        <div class="aside">
+
+          <!-- Categories -->
+          <div class="topics">
+              <h2 class="h2">Categories</h2>
+              {% for category in categories %}
+                  <a href="{% url 'blogs_by_category' category.slug %}" class="topic-btn">
+                      <p>{{ category.name }}</p>
+                  </a>
+              {% endfor %}
+          </div>
+      
+          <!-- Tags -->
+          <div class="tags">
+              <h2 class="h2">Tags</h2>
+              <div class="wrapper">
+                  {% for tag in tags %}
+                      <button class="hashtag">#{{ tag.name }}</button>
+                  {% endfor %}
+              </div>
+          </div>
+      
+          <!-- Contact Section -->
+          <div class="contact">
+              <h2 class="h2">Let's Talk</h2>
+              <div class="wrapper">
+                  <p>Do you want to learn more about how I can help your company overcome problems? Let us have a conversation.</p>
+                  <ul class="social-link">
+                      <li>
+                          <a href="#" class="icon-box discord">
+                              <ion-icon name="logo-discord"></ion-icon>
+                          </a>
+                      </li>
+                      <li>
+                          <a href="#" class="icon-box twitter">
+                              <ion-icon name="logo-twitter"></ion-icon>
+                          </a>
+                      </li>
+                      <li>
+                          <a href="#" class="icon-box facebook">
+                              <ion-icon name="logo-facebook"></ion-icon>
+                          </a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      
+          <!-- Newsletter Section -->
+          <div class="newsletter">
+              <h2 class="h2">Newsletter</h2>
+              <div class="wrapper">
+                  <p>Subscribe to our newsletter to be among the first to keep up with the latest updates.</p>
+                  <form action="{% url 'newsletter_signup' %}" method="post">
+                      {% csrf_token %}
+                      <input type="email" name="email" placeholder="Email Address" required>
+                      <button type="submit" class="btn btn-primary">Subscribe</button>
+                  </form>
+              </div>
+          </div>
+      
+        </div>
+      
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+
+
+
+  <!--
+    - #FOOTER
+  -->
+
+  <footer>
+
+    <div class="container">
+
+      <div class="wrapper">
+
+        <a href="#" class="footer-logo">
+          <img src="{% static '/images/logo-light.svg'%}" alt="DevBlog's Logo" width="150" height="40" class="logo-light">
+          <img src="{% static '/images/logo-dark.svg'%}" alt="DevBlog's Logo" width="150" height="40" class="logo-dark">
+        </a>
+
+        <p class="footer-text">
+          Learn about Web accessibility, Web performance, and Database management.
+        </p>
+
+      </div>
+
+      <div class="wrapper">
+
+        <p class="footer-title">Quick Links</p>
+
+        <ul>
+
+          <li>
+            <a href="#" class="footer-link">Advertise with us</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">About Us</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Contact Us</a>
+          </li>
+
+        </ul>
+
+      </div>
+
+      <div class="wrapper">
+
+        <p class="footer-title">Legal Stuff</p>
+
+        <ul>
+
+          <li>
+            <a href="#" class="footer-link">Privacy Notice</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Cookie Policy</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Terms Of Use</a>
+          </li>
+
+        </ul>
+
+      </div>
+
+    </div>
+
+    <p class="copyright">
+      &copy; Copyright 2022 <a href="#">chisom</a>
+    </p>
+
+  </footer>
+
+
+
+
+
+  <!--
+    - custom js link
+  -->
+  <script src="{% static './js/script.min.js' %}"></script>
+
+  <!--
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link
+        rel="shortcut icon"
+        href="{% static 'images/favicon.ico' %}"
+        type="image/x-icon"
+      />
+
+      <!-- Custom CSS links -->
+      <link rel="stylesheet" href="{% static 'css/style.min.css' %}" />
+      <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+
+      <!-- Google Font links -->
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"
+        rel="stylesheet"
+      />
+    <title>Cicino's Blog - chisom Personal Blog</title>
+    <style>
+      .user-profile {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+  
+      .user-img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+  
+      .user-img img {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+  
+      .user-profile span {
+        font-size: 12px;
+        color: var(--foreground-primary);
+      }
+      .step-links {
+        display: flex;
+        gap: 10px;
+      }
+      .next {
+        display: flex;
+        gap: 10px;
+      }
+  
+      @media screen and (max-width: 1024px) {
+       .desktop-profile {
+          display: none !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="light-theme">
+    <header>
+
+      <div class="container">
+  
+        <nav class="navbar">
+  
+          <a href="#">
+            <img src="{% static 'images/logo-light.svg' %}" alt="Devblog's logo" width="150" height="40" class="logo-light">
+            <img src="{% static 'images/logo-dark.svg' %}" alt="Devblog's logo" width="150" height="40" class="logo-dark">
+          </a>
+  
+  
+          <div class="btn-group">
+  
+            <button class="theme-btn theme-btn-mobile light">
+              <ion-icon name="moon" class="moon"></ion-icon>
+              <ion-icon name="sunny" class="sun"></ion-icon>
+            </button>
+  
+            <button class="nav-menu-btn">
+              <ion-icon name="menu-outline"></ion-icon>
+            </button>
+  
+            <div class="user-profile">
+              <div class="user-img">
+                  <img src="{% if user.is_authenticated %}{% if user.avatar %}{% static user.avatar.url %}{% else %}{% static 'images/user.svg' %}{% endif %}{% else %}{% static 'images/user.svg' %}{% endif %}" alt="User profile picture" class="user-profile-img" />
+              </div>
+              <a href="{% if user.is_authenticated %}{% url 'profile' %}{% else %}{% url 'login' %}{% endif %}">
+                  <span class="username">{% if user.is_authenticated %}{{ user.name }}{% else %}Login{% endif %}</span>
+              </a>
+            </div>
+  
+          </div>
+  
+          <div class="flex-wrapper">
+  
+            <ul class="desktop-nav">
+  
+              <li class="nav-item">
+                <a href="{% url 'blog' %}" class="nav-link">Home</a>
+              </li>
+  
+              <li>
+                <a href="#" class="nav-link">About Me</a>
+              </li>
+  
+              <li>
+                <a href="#" class="nav-link">Contact</a>
+              </li>
+  
+            </ul>
+  
+            <button class="theme-btn theme-btn-desktop light">
+              <ion-icon name="moon" class="moon"></ion-icon>
+              <ion-icon name="sunny" class="sun"></ion-icon>
+            </button>
+  
+          </div>
+  
+          <div class="user-profile desktop-profile">
+            <div class="user-img">
+                <img src="{% if user.is_authenticated %}{% if user.avatar %}{% static user.avatar.url %}{% else %}{% static 'images/user.svg' %}{% endif %}{% else %}{% static 'images/user.svg' %}{% endif %}" alt="User profile picture" class="user-profile-img" />
+            </div>
+            <a href="{% if user.is_authenticated %}{% url 'profile' %}{% else %}{% url 'login' %}{% endif %}">
+                <span class="username">{% if user.is_authenticated %}{{ user.name }}{% else %}Login{% endif %}</span>
+            </a>
+          </div>
+  
+  
+          <div class="mobile-nav">
+  
+            <button class="nav-close-btn">
+              <ion-icon name="close-outline"></ion-icon>
+            </button>
+  
+            <div class="wrapper">
+  
+              <p class="h3 nav-title">Main Menu</p>
+  
+              <ul>
+                <li class="nav-item">
+                  <a href="{% url 'blog' %}" class="nav-link">Home</a>
+              </li>
+              
+  
+                <li class="nav-item">
+                  <a href="#" class="nav-link">About Me</a>
+                </li>
+  
+                <li class="nav-item">
+                  <a href="#" class="nav-link">Contact</a>
+                </li>
+                <li class="nav-item"></li>
+                {% if user.is_authenticated %}
+                   <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
+                  {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+                {% endif %}
+                </li>
+              </ul>
+  
+  
+  
+            </div>
+  
+            <div>
+  
+              <p class="h3 nav-title">Topics</p>
+  
+              <ul>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">Database</a>
+                </li>
+  
+                <li class="nav-item">
+                  <a href="#" class="nav-link">Accessibility</a>
+                </li>
+  
+                <li class="nav-item">
+                  <a href="#" class="nav-link">Web Performance</a>
+                </li>
+              </ul>
+  
+            </div>
+  
+          </div>
+  
+  
+        </nav>
+  
+      </div>
+  
+    </header>
+
+    <main>
+      <article class="blogpost">
+        <div class="container">
+            <h2>{{ blog.title }}</h2>
+            <div class="profile-container">
+                <div class="profile">
+                    <div class="img-container">
+                        <img src="{{ blog.author.avatar.url|default:'static/images/user.svg' }}" alt="Author profile picture" />
+                    </div>
+                    <div class="text">
+                        <h3 class="author">{{ blog.author.name }}</h3>
+                        <p class="date">{{ blog.created|date:"d F, Y" }}</p>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="content">
+                <img src="{{ blog.image.url }}" alt="{{ blog.title }}" />
+                <p>{{ blog.content }}</p>
+            </div>
+            <div class="likes">
+              <p style="color: var(--foreground-primary);" class="h3">{{ blog.likes.count }} Likes</p>
+              <form action="{% url 'like_blog' blog.id %}" method="POST">
+                {% csrf_token %}
+                {% if user.is_authenticated %}
+                    {% if user in blog.likes.all %}
+                        <button type="submit" style="color: var(--foreground-primary);"><ion-icon name="thumbs-down-outline" style="font-size: 24px;"></ion-icon></button>
+                    {% else %}
+                        <button type="submit" style="color: var(--foreground-primary);"><ion-icon style="font-size: 24px;" name="thumbs-up-outline"></ion-icon></button>
+                    {% endif %}
+                {% else %}
+                    <a href="{% url 'user_login' %}" style="color: var(--foreground-primary);"><ion-icon name="thumbs-up-outline" style="font-size: 24px;"></ion-icon></a>
+                {% endif %}
+            </form>
+            </div>
+    
+            <div class="comments">
+                <h2>Comments</h2>
+                {% for comment in comments %}
+                <div class="comment">
+                    <p>{{ comment.comment }}</p>
+                    <div class="profile">
+                        <div class="img-container">
+                            <img src="{{ comment.user.avatar.url|default:'static/images/user.svg' }}" alt="User profile picture" />
+                        </div>
+                        <div class="text">
+                            <h3 class="author">{{ comment.user.username }}</h3>
+                            <p class="date">{{ comment.created|date:"d F, Y" }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p>No comments yet.</p>
+                {% endfor %}
+                <div class="comment-form">
+                    <h3>Leave a Comment</h3>
+                    <form method="POST" action="{% url 'add_comment' blog.id %}">
+                        {% csrf_token %}
+                        <textarea name="comment" placeholder="Your Comment" required></textarea>
+                        <button type="submit" class="btn btn-primary">Comment</button>
+                    </form>
+                </div>
+            </div>
+    
+            <div class="related-topics">
+              <h2>Related Posts</h2>
+              <div class="cards">
+                  {% for related_blog in related_blogs %}
+                  <div class="card">
+                      <img src="{{ related_blog.image.url }}" alt="{{ related_blog.title }}" />
+                      <h3>{{ related_blog.title }}</h3>
+                      <a href="{% url 'blogdetail' related_blog.id %}" class="btn btn-primary">Read More</a>
+                  </div>
+                  {% empty %}
+                  <p>No related posts available.</p>
+                  {% endfor %}
+              </div>
+          </div>
+          
+        </div>
+      </article>
+    
+
+      </div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="wrapper">
+          <a href="#" class="footer-logo">
+            <img src="{% static '/images/logo-light.svg'%}" alt="DevBlog's Logo" width="150" height="40" class="logo-light">
+            <img src="{% static '/images/logo-dark.svg'%}" alt="DevBlog's Logo" width="150" height="40" class="logo-dark">
+          </a>
+
+          <p class="footer-text">
+            Learn about Web accessibility, Web performance, and Database
+            management.
+          </p>
+        </div>
+
+        <div class="wrapper">
+          <p class="footer-title">Quick Links</p>
+
+          <ul>
+            <li>
+              <a href="#" class="footer-link">Advertise with us</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">About Us</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Contact Us</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="wrapper">
+          <p class="footer-title">Legal Stuff</p>
+
+          <ul>
+            <li>
+              <a href="#" class="footer-link">Privacy Notice</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Cookie Policy</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Terms Of Use</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="copyright">&copy; Copyright 2022 <a href="#">chisom</a></p>
+    </footer>
+
+    <!--
+        - custom js link
+      -->
+    <script src="{% static './js/script.min.js' %}"></script>
+
+    <!--
+        - ionicon link
+      -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+  </body>
+</html>
